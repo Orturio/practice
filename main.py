@@ -6,9 +6,8 @@ import sys
 class Helper:
     def ls(path):
         if os.path.exists(path):
-            currentPath = path
             for sequanceNumber, folder in enumerate(os.listdir(path)):
-                currentFolderPath = currentPath + folder
+                currentFolderPath = path + folder
                 sizeOfFolder = os.path.getsize(currentFolderPath)
                 authorOfFolder = pwd.getpwuid(os.stat(currentFolderPath).st_uid).pw_name
                 print(sequanceNumber, '||', authorOfFolder, "||", folder, "||", sizeOfFolder)
