@@ -1,13 +1,21 @@
+#!/usr/bin/env python3
 import os
 import pwd
+import sys
 
 class Helper:
     def ls(path):
-        for entry in os.listdir(path):
-            print(pwd.getpwuid(os.stat(path).st_uid).pw_name, "||", f'{entry}', "||", os.path.getsize(path))
+        if os.path.exists(path):
+            currentPath = path
+            for sequanceNumber, folder in enumerate(os.listdir(path)):
+                currentFolderPath = currentPath + folder
+                sizeOfFolder = os.path.getsize(currentFolderPath)
+                authorOfFolder = pwd.getpwuid(os.stat(currentFolderPath).st_uid).pw_name
+                print(sequanceNumber, '||', authorOfFolder, "||", folder, "||", sizeOfFolder)
+        else:
+            print('directory not found')
 
 class ls:
     help = Helper()
-    path = str(input("insert path"))
+    path = str(sys.argv[1])
     Helper.ls(path)
-
